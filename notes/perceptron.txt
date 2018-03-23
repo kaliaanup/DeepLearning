@@ -1,0 +1,120 @@
+Building a 3-layer network
+--------------------------
+
+Common choices for activation functions are:
+---------------------------------------------
+
+-tanh = Sinh[z]/Cosh[z]
+-sigmoid function = 1/(1+e^(-z))
+-ReLUs (rectifier Linear Unit) = f(x) = log (1+exp z) ...derivative of the function is logistic function f'(z) = exp z/(1+exp(-z))
+
+Softmax
+-------
+Convert raw score to probabilities. It's also called normalized exponential function
+
+	delta(z) = exp(z)/(sum(exp(z)))
+
+	example: z = [1.0, 2.0, 3.0, 4.0, 1.0, 2.0, 3.0] output: [0.0236405, 0.0642617, 0.174681, 0.474833, 0.0236405, 0.0642617, 0.174681]
+
+
+Prediction
+----------
+Consider x as 2D input to our network
+
+We make prediction using forward propagation. From x we calculate prediction y' as follows
+
+	z1 = x * W1 + b1
+	a1 = tanh(z1)
+	z2 = a1 * W2 + b2
+	a2 = y' = softmax (z2)
+
+-zi is the weighted sum of inputs of layer i (bias included) 
+-ai is the output of layer i after applying the activation function
+-W1, b1, W2, b2 are parameters of our network, which we need to learn from our training data
+
+-Dimensions x = [500,2], W1 = [2, 500], b1 = [500, 1], W2 = [500, 2], b2 = [2,1]
+
+Learning the Parameters
+-----------------------
+Find W1, b1, W2, b2 that minimizes the error on our training data
+
+-We use a loss function that measures the error.
+-considering N training examples and C classes, we define y' with respect to true label y as 
+
+	L(y, y')= - (1/N) sum_nN sum_iC yn,i * log y'n,i
+
+--it really does is sum over our training examples and add to the loss if we predicted the incorrect class, further away y (the correct labels) and y' (our predictions) are, the greater our loss will be.
+
+Minimizing the Loss Function
+-----------------------------
+
+We need to find paramaters where the loss is minimum. We use gradient descent to find the minimum.
+
+A gradient descent needs gradients (vector of derivatives) of the loss function with respect to our parameters
+
+- dL/dW1, dL/db1, dl/dW2, dl/db2
+
+-to compute the gradients we need the backpropagation algorithm that computes the gradient starting from the output
+
+	delta3 = y' - y
+	delta2 = (1 - tanh^2 * z1).delta3 * W2^{T}
+	dL/dW2 = a1^{T} * delta3
+	dL/db2 = delta3
+	dl/dW1 = x^{T} * delta2
+	dl/db1 = delta2
+
+Tutorial on Computational Graphs (Backpropagation)
+--------------------------------------------------
+
+Consider an expression e = (a + b) * (b + 1)
+
+Consider a = 2, b = 1
+
+c = (a + b ) = 3
+d = (b + 1) = 2
+e = c * d = 6
+
+Derivatives on Computational Graph (http://colah.github.io/posts/2015-08-Backprop/)
+-----------------------------------------------------------------------------------
+The key is to understand derivatives on the edges
+
+if a affects c, we want to know how it affects c i.e., if a changes a bit, how does c change. We call it partial derivative of c with respect to a.
+
+dc/da = d(a + b)/da = da/da + db/da = 1
+
+dc/db = d(a + b)/db = da/db + db/db = 1
+
+dd/db = d(b+1)/db = 1
+
+de/dc = d(c*d)/dc = c * dd/dc + d * dc/dc = 3 * 0 + 2 * 1 = 2
+
+de/dd = d(c*d)/dd = c * dd/dd + d * dc/dd = 3 * 1 + 2 * 0 = 3
+
+de/db = de/dc * dc/db + de/dd * dd/db = 2 * 1 + 3 * 1 = 5
+
+Forward-mode differentiation from b
+------------------------------------
+da/db =0, db/db = 1, dc/db = 1, dd/db = 1, de/db = de/dc * dc/db + de/dd * dd/db = 2 * 1 + 3 * 1 = 5
+
+Reverse-mode differentiation from e (derivative of e with respect to every node)
+--------------------------------------------------------------------------------
+de/de = 1, 
+de/dc = 2, 
+de/dd = 3, 
+de/da = de/dc * dc/da + de/db * db/da = 2 * 1 + 5 * 0 = 2, 
+de/db = de/dc * dc/db + de/dd * dd/db = 2 * 1 + 3 * 1 = 5
+
+
+-Reverse-mode differentiation  is same as Back-propagation
+
+
+
+
+
+
+
+
+
+
+
+
