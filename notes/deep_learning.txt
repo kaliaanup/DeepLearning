@@ -1,0 +1,32 @@
+supervised
+----------
+Feed Forward Network
+
+1. feed forward network also referred as MLP. It's a fully connected dense model used as a simple classifier.
+
+2. convolution neural network assume that highly correlated features located to each other in the input matrix. 
+   It can be pooled and treated as one in the next layer
+
+Recurrent Neural Network
+
+1. recurrent neural network is a class of artificial neural network where connections between units form a directed cycle
+
+2. long short term memory network contains gates that determine if the input is significant enough to remember
+
+Unsupervised
+---------------
+
+1. Auto encoder aims to learn representation for a set of data typically for the purpose of dimensionality reduction
+
+2. Restricted Boltzmann machine can learn a probability distribution over its set of inputs
+
+3. Deep Belief Net is a composition of simple unsupervised networks such as restricted Boltzmann machines where 
+each sub-network's hidden layer serves as the visible layer for the next
+
+
+
+ 
+
+ 
+   
+  

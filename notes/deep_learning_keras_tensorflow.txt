@@ -1,0 +1,34 @@
+Keras
+------
+1. dims = X_train.shape[1]
+
+2. nb_classes = Y_train.shape[1]
+
+3. model = Sequential()
+
+Sequential means a linear stack of layers. We are stacking fully connected Dense layer of trainable weights
+from input to output and an activation layer at the top.
+
+4. model.add(Dense(nb_classes, input_shape=(dims,), activation='sigmoid'))
+	- activation: name of activation function to use 
+	- available activation: softmax(x, axis=-1), elu(x, alpha=1.0), selu(x)
+							softplus(x), softsign(x), relu(x, alpha=0.0, max_value=None)
+							tanh(x), sigmoid(x), hard_sigmoid(x), linear(x)
+							
+							
+
+5. model.add(Activation('softmax'))
+
+Callbacks
+
+6. early_stop = EarlyStopping(monitor='val_loss', patience=2, verbose=1) 
+7. best_model = ModelCheckpoint(fBestModel, verbose=0, save_best_only=True)
+8. model.fit(X_train, Y_train, validation_data = (X_val, Y_val), epochs=50, 
+          batch_size=128, verbose=True, callbacks=[best_model, early_stop])
+          
+A callback is a set of functions to be applied at given stages of the training procedure. 
+You can use callbacks to get a view on internal states and statistics of the model during training.
+
+--ModelCheckpoint: Save the model after every epoch.
+--EarlyStopping: Stop training when a monitored quantity has stopped improving. 
+
