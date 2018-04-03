@@ -1,0 +1,32 @@
+--The aim of an autoencoder is to learn a representation (encoding) for a set of data, typically 
+for the purpose of dimensionality reduction.
+
+https://blog.keras.io/building-autoencoders-in-keras.html
+
+--"Autoencoding" is a data compression algorithm where the compression and decompression functions are 1) data-specific, 
+2) lossy, and 3) learned automatically from examples rather than engineered by a human.
+
+--the compression and decompression functions are implemented with neural networks.
+
+-Autoencoders are data-specific, which means that they will only be able to compress data similar 
+to what they have been trained on.
+
+-Autoencoders are lossy, which means that the decompressed outputs will be degraded compared to the original inputs
+
+--Autoencoders are learned automatically from data examples, which is a useful property:it means that it is easy to
+ train specialized instances of the algorithm that will perform well on a specific type of input. It doesn't require 
+ any new engineering, just appropriate training data.
+ 
+ To build an autoencoder, you need three things: an encoding function, a decoding function, and a distance function 
+ between the amount of information loss between the compressed representation of your data and the decompressed 
+ representation (i.e. a "loss" function). 
+ 
+ --Today two interesting practical applications of autoencoders are data denoising (which we feature later in this post),
+  and dimensionality reduction for data visualization.
+  
+ --problem of unsupervised learning, i.e. the learning of useful representations without the need for labels.
+ 
+ --autoencoders are they are a self-supervised technique, a specific instance of supervised learning where the
+  targets are generated from the input data
+  
+  

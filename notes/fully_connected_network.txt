@@ -1,0 +1,69 @@
+Fully connected feed-forward network for a classification task:
+
+The output of each layer is computed using activation functions from the previous one
+
+		h_i = sigmoid(W_i * h_i-1 + b_i)
+		
+where h_i is the activation vector from the i-th layer (or the input data for i=0), W_i and b_i 
+are the weight matrix and the bias vector for the i-th layer, respectively.
+
+To regularize the model, we will also insert a Dropout layer between consecutive hidden layers.
+
+Dropout works by “dropping out” some unit activations in a given layer, that is setting them to 
+zero with a given probability.  
+
+Model Definition
+-----------------
+Sequential + Dense + Dropout
+
+1. Sequential
+	-- model = Sequential ()
+	-- model.add(Dense(32, input_shape=(500,)))
+	-- model.add(Dense(10, activation='softmax'))
+	-- model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+	-- model.fit(X, y)
+	-- mode.evaluate(X', y')
+	-- model.predict(X)
+	
+	optimizer: sgd, rmsprop, adagrad, adadelta, adam, adamax, nadam, tfoptimizer
+	loss: mean_squared_error, mean_absolute_error, mean_absolute_percentage_error, 
+	      mean_squared_logarithmic_error, squared_hinge, hinge, categorical_hinge,
+	      logcosh, categorical_crossentropy, sparse_categorical_crossentropy, binary_crossentropy,
+	      kullback_leibler_divergence, poisson, cosine_proximity
+      
+2. Dense
+	Dense implements the operation: output = activation(dot(input, kernel) + bias)
+	-- kernel is a weights matrix created by the layer,
+	-- bias is a bias vector created by the layer
+ 	# as first layer in a sequential model:
+	-- model = Sequential()
+	-- model.add(Dense(32, input_shape=(16,)))
+	# now the model will take as input arrays of shape (*, 16)
+	# and output arrays of shape (*, 32)
+	# after the first layer, you don't need to specify
+	# the size of the input anymore:
+	-- model.add(Dense(32))
+
+3. Dropout
+ 	-- Dropout(rate, noise_shape=None, seed=None)
+ 	Applies Dropout to the input.
+ 	--The  key  idea  is  to  randomly  drop  units  (along  with  their  connections)  from  the  neural
+	network during training
+	--Dropout consists in randomly setting a fraction rate of input units to 0 at each update during training time, 
+	which helps prevent overfitting.
+	--by dropping a unit means temporarily remove it from the network
+	--the choice of which unit to drop is random
+ 	-- Dropout consists in randomly setting a fraction rate of input units to 0 at 
+ 	each update during training time, which helps prevent overfitting.
+ 	--remove redundant representations
+ 	
+Monitor Network
+---------------
+--It is always necessary to monitor training and validation loss during the training of any kind of Neural Network, 
+either to detect overfitting or to evaluate the behaviour of the model
+
+
+
+ 
+
+	

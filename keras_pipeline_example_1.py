@@ -42,15 +42,15 @@ model.add(Activation('softmax'))
 
 #add optimizer stochastic gradient descent
 model.compile(optimizer='sgd', loss='categorical_crossentropy')
-#model.fit(X_train, Y_train)
+model.fit(X_train, Y_train)
 
 model.summary()
 
-X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size=0.15, random_state=42)
-
-fBestModel = 'best_model.h5' 
-early_stop = EarlyStopping(monitor='val_loss', patience=2, verbose=1) 
-best_model = ModelCheckpoint(fBestModel, verbose=0, save_best_only=True)
-
-model.fit(X_train, Y_train, validation_data = (X_val, Y_val), epochs=50, 
-          batch_size=128, verbose=True, callbacks=[best_model, early_stop])
+# X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size=0.15, random_state=42)
+# 
+# fBestModel = 'best_model.h5' 
+# early_stop = EarlyStopping(monitor='val_loss', patience=2, verbose=1) 
+# best_model = ModelCheckpoint(fBestModel, verbose=0, save_best_only=True)
+# 
+# model.fit(X_train, Y_train, validation_data = (X_val, Y_val), epochs=50, 
+#           batch_size=128, verbose=True, callbacks=[best_model, early_stop])

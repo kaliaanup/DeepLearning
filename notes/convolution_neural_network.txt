@@ -1,0 +1,83 @@
+More generally, it turns out that the gradient in deep neural networks is unstable, tending to 
+either explode or vanish in earlier layers.  This instability is a fundamental problem for gradient-based 
+learning in deep neural networks. It's something we need to understand, and, if possible, take steps to address.
+
+--What cause vanishing gradient problem?
+
+**[http://neuralnetworksanddeeplearning.com/chap6.html]
+--Fully connected layers/network architecture does not take into account the spatial structure of the image
+
+--Convolution neural network take into account the spatial structure, hence, used extensively in image classification
+--It has 3 basic ideas:
+	--Local receptive fields
+	--Shared Weights
+	--Pooling
+	
+ Local receptive fields 
+ -----------------------
+ --Consider input as 28x28 square of neurons that depicts 28x28 pixels
+ --We  will connect input pixels to a layer of hidden neurons
+ --However, rather connecting every input pixel to every hidden neuron, we make connections
+   in small localized regions.
+ --For example, each neuron in the first hidden layer will be connected to 
+   a small region of input neurons say a 5x5 region corresponding to 25 pixels
+ --the region in the input image is called the local receptive field or hidden neuron
+ --then slide the local receptive field across the entire region
+ --if 28x28 image, and 5x5 local receptive fields, then the first hidden layer will have 24x24 neurons
+ --23 neurons across and 23 neurons down
+ --different stride length can be used eg 2 pixels
+ 
+ Shared Weights and Biases
+ --------------------------
+ --same weights and bias for 24x24 hidden neurons
+ --each neuron has a bias and 5x5 weights connected to its local receptive field
+ --sigmoid(b + \sum_l{0,4} \sum_m{0,4} w_{l,m} * a_{j+l,k+m}
+ --mapping from input layer to a hidden layer is called feature map
+ --weights defining feature map is called as shared weights
+ --for image recognition, more feature maps are required
+ --A big advantage of sharing weights and biases is that it 
+   greatly reduces the number of parameters involved in a convolutional network.
+   
+   For example in the fully connected network: we have 784 = 28 x 28 neurons. 
+   Consider adding 30 hidden neurons
+   Total weights 784 x 30 + 30 bias = 23,550 parameters
+   
+   In the convoluted network for 784 = 28 x 28 neurons, 
+   we consider a feature map with 25 = 5 x 5 shared weights plus a single bias = 26 paramaters
+   Assuming 20 such feature maps we would have 520 = 20 x 26 parameters. Dense network has 40 times parameters
+   than the convolution network
+   
+  --as a result due to reduced paramters, CNNs are faster to train
+  --convolution comes from the equation sigmoid(b + \sum_l{0,4} \sum_m{0,4} w_{l,m} * a_{j+l,k+m}
+  --people can write the equation as a_1 = sigmoid(b + w * a_0) a_1 denotes the set of output activations
+   from one feature map, a_0 is the set of input activations, and ∗ is called a convolution operation.
+   
+ Pooling Layers
+ --------------
+ --pooling layers simplify the information in the output from the convolution layer
+ --a pooling layer takes each feature map output from the convolutional layer and 
+   prepares a condensed feature map
+ --For example, each unit in the pooling layer may summarize a region of (say) 2×2 neurons 
+   in the previous layer
+ --max-pooling: a pooling unit simply outputs the maximum activation in the 2×2 input region,
+ --consider we have 24 x 24 hidden neurons, after pooling we have 12 x 12 neurons
+ --overall architecture
+ --image --> 28 x 28 input neurons --> 3 x 24 x 24 neurons --> 3 x 12 x 12 neurons
+ --basically pooling layers are the way to find the location of the feature in the network
+ --it reduced the number of parameters
+ --L2 pooling: rather than taking maximum activation of 2x2 region of neurons, we take the 
+   square root of the sum of the squares of the activations in the 2×2 region.
+ --L2 pooling is a way of condensing information from the convolutional layer
+ --The final layer of connections in the network is a fully-connected layer. That is, this
+  layer connects every neuron from the max-pooled layer to every one of the 10 output neurons.  
+ 
+ 
+   
+   
+   
+   
+   
+   
+ 
+ 
+ 

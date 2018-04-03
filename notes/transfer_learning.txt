@@ -1,0 +1,19 @@
+https://towardsdatascience.com/transfer-learning-using-keras-d804b2e04ef8
+Transfer learning
+------------------
+--It is a research problem in machine learning that focuses on storing knowledge gained 
+while solving one problem and applying it to a different but related problem
+
+--very people train CNN from scratch because it is rare to get enough dataset
+--pre-trained network weights as initializations or a fixed feature extractor helps in solving most of the problems
+--very deep networks are expensive to train
+--determine topology/flavor/training method/hyper params
+--most of the computer vision problems does not have large datasets 
+--training networks with million parameters generally tend to overfit the model
+--covnet features are more generic in early layers 
+--more original-dataset-specific in latent layers
+--So lets freeze all the VGG19 layers and train only the classifier
+--for layer in model.layers:
+   --layer.trainable = False
+ 
+--New dataset is large and similar to the original dataset
